@@ -71,5 +71,17 @@ namespace AutoServiceCatalog.BLL.Services
             _unitOfWork.Suppliers.DeleteAsync(existing);
             await _unitOfWork.SaveChangesAsync();
         }
+        public async Task<List<SupplierDto>> SearchByNameAsync(string keyword)
+        {
+            var result = await _unitOfWork.Suppliers.SearchByNameAsync(keyword);
+            return _mapper.Map<List<SupplierDto>>(result);
+        }
+        public async Task<SupplierDto> GetSupplierWithPartsAsync(int id)
+        {
+            var supplier = await _unitOfWork.Suppliers.GetSupplierWithPartsAsync(id);
+            if (supplier == null) throw new Exception("Supplier not found");
+
+            return _mapper.Map<SupplierDto>(supplier);
+        }
     }
 }

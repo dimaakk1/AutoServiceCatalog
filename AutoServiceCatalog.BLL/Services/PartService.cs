@@ -76,5 +76,21 @@ namespace AutoServiceCatalog.BLL.Services
             _unitOfWork.Parts.DeleteAsync(existing);
             await _unitOfWork.SaveChangesAsync();
         }
+        public async Task<List<PartDto>> SearchByNameAsync(string keyword)
+        {
+            var result = await _unitOfWork.Parts.SearchByNameAsync(keyword);
+            return _mapper.Map<List<PartDto>>(result);
+        }
+        public async Task<List<PartDto>> GetPartsAbovePriceAsync(decimal price)
+        {
+            var parts = await _unitOfWork.Parts.GetPartsAbovePriceAsync(price);
+            return _mapper.Map<List<PartDto>>(parts);
+        }
+
+        public async Task<List<PartDto>> GetPartsBelowPriceAsync(decimal price)
+        {
+            var parts = await _unitOfWork.Parts.GetPartsBelowPriceAsync(price);
+            return _mapper.Map<List<PartDto>>(parts);
+        }
     }
 }

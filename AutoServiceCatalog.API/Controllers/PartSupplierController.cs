@@ -53,5 +53,19 @@ namespace AutoServiceCatalog.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+        [HttpGet("part/{partId}/suppliers")]
+        public async Task<IActionResult> GetSuppliersByPart(int partId)
+        {
+            var suppliers = await _service.GetSuppliersByPartIdAsync(partId);
+            return Ok(suppliers);
+        }
+
+        [HttpGet("supplier/{supplierId}/parts")]
+        public async Task<IActionResult> GetPartsBySupplier(int supplierId)
+        {
+            var parts = await _service.GetPartsBySupplierIdAsync(supplierId);
+            return Ok(parts);
+        }
+
     }
 }

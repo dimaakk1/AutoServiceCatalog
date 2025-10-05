@@ -67,5 +67,14 @@ namespace AutoServiceCatalog.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+
+        [HttpGet("by-manufacturer/{manufacturer}")]
+        public async Task<IActionResult> GetByManufacturer(string manufacturer)
+        {
+            var result = await _service.GetByManufacturerAsync(manufacturer);
+            if (result == null || result.Count == 0)
+                return NotFound("No parts found for this manufacturer.");
+            return Ok(result);
+        }
     }
 }

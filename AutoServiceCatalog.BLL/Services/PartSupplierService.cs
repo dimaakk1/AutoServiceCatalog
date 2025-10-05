@@ -55,5 +55,16 @@ namespace AutoServiceCatalog.BLL.Services
             _unitOfWork.PartSupplier.DeleteAsync(entity);
             await _unitOfWork.SaveChangesAsync();
         }
+        public async Task<List<PartDto>> GetPartsBySupplierIdAsync(int supplierId)
+        {
+            var parts = await _unitOfWork.PartSupplier.GetPartsBySupplierIdAsync(supplierId);
+            return _mapper.Map<List<PartDto>>(parts);
+        }
+
+        public async Task<List<SupplierDto>> GetSuppliersByPartIdAsync(int partId)
+        {
+            var suppliers = await _unitOfWork.PartSupplier.GetSuppliersByPartIdAsync(partId);
+            return _mapper.Map<List<SupplierDto>>(suppliers);
+        }
     }
 }

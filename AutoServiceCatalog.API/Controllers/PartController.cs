@@ -77,6 +77,31 @@ namespace AutoServiceCatalog.API.Controllers
                 return NotFound(new { message = ex.Message });
             }
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string keyword)
+        {
+            var parts = await _partService.SearchByNameAsync(keyword);
+            return Ok(parts);
+        }
+        [HttpGet("price/above/{price}")]
+        public async Task<IActionResult> GetPartsAbovePrice(decimal price)
+        {
+            var parts = await _partService.GetPartsAbovePriceAsync(price);
+            if (parts == null || !parts.Any())
+                return NotFound("No parts found above this price");
+
+            return Ok(parts);
+        }
+
+        [HttpGet("price/below/{price}")]
+        public async Task<IActionResult> GetPartsBelowPrice(decimal price)
+        {
+            var parts = await _partService.GetPartsBelowPriceAsync(price);
+            if (parts == null || !parts.Any())
+                return NotFound("No parts found below this price");
+
+            return Ok(parts);
+        }
     }
 
 }

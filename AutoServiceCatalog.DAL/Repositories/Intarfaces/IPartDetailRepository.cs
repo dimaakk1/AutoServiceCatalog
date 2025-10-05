@@ -9,6 +9,6 @@ namespace AutoServiceCatalog.DAL.Repositories.Intarfaces
 {
     public interface IPartDetailRepository : IGenericRepository<PartDetail>
     {
-
+        Task<List<PartDetail>> GetByManufacturerAsync(string manufacturer);
     }
 }

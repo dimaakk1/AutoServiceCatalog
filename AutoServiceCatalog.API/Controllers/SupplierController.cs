@@ -59,5 +59,19 @@ namespace AutoServiceCatalog.API.Controllers
             await _supplierService.DeleteAsync(id);
             return NoContent();
         }
+
+        [HttpGet("{id}/with-parts")]
+        public async Task<IActionResult> GetSupplierWithParts(int id)
+        {
+            try
+            {
+                var supplier = await _supplierService.GetSupplierWithPartsAsync(id);
+                return Ok(supplier);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

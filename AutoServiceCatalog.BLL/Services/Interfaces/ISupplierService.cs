@@ -14,5 +14,6 @@ namespace AutoServiceCatalog.BLL.Services.Interfaces
         Task<SupplierDto> CreateAsync(SupplierCreateDto dto);
         Task UpdateAsync(int id, SupplierCreateDto dto);
         Task DeleteAsync(int id);
+        Task<SupplierDto> GetSupplierWithPartsAsync(int id);
     }
 }

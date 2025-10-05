@@ -27,5 +27,12 @@ namespace AutoServiceCatalog.DAL.Repositories
                 .Where(p => p.Price < price)
                 .ToListAsync();
         }
+
+        public async Task<List<Part>> SearchByNameAsync(string keyword)
+        {
+            return await _context.Parts
+                .Where(p => p.Name.Contains(keyword))
+                .ToListAsync();
+        }
     }
 }
