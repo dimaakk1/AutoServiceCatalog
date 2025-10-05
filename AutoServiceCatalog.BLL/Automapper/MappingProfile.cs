@@ -18,6 +18,11 @@ namespace AutoServiceCatalog.BLL.Automapper
             CreateMap<Part, PartDto>().ReverseMap();
             CreateMap<Part, PartCreateDto>().ReverseMap();
             CreateMap<PartCreateDto, Part>();
+            CreateMap<Supplier, SupplierDto>().ReverseMap();
+            CreateMap<Supplier, SupplierCreateDto>().ReverseMap();
+            CreateMap<PartDetail, PartDetailDto>().ReverseMap();
+            CreateMap<PartDetailCreateDto, PartDetail>().ReverseMap();
+            CreateMap<PartSupplier, PartSupplierDto>().ReverseMap();
         }
 
     }

@@ -15,22 +15,20 @@ namespace AutoServiceCatalog.DAL.Db
         public DbSet<PartDetail> PartDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<PartSupplier> PartSupplier { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // 1:1 Part ↔ PartDetail
             modelBuilder.Entity<Part>()
                 .HasOne(p => p.PartDetail)
                 .WithOne(d => d.Part)
                 .HasForeignKey<PartDetail>(d => d.PartId);
 
-            // 1:N Category → Parts
             modelBuilder.Entity<Category>()
                 .HasMany(c => c.Parts)
                 .WithOne(p => p.Category)
                 .HasForeignKey(p => p.CategoryId);
 
-            // M:N Part ↔ Supplier
             modelBuilder.Entity<PartSupplier>()
                 .HasKey(ps => new { ps.PartId, ps.SupplierId });
 

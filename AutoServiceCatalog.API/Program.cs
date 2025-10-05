@@ -29,11 +29,15 @@ namespace AutoServiceCatalog.API
             builder.Services.AddScoped<IPartSupplierRepository, PartSupplierRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IPartService, PartService>();
+            builder.Services.AddScoped<ISupplierService, SupplierService>();
+            builder.Services.AddScoped<IPartDetailService, PartDetailService>();
+            builder.Services.AddScoped<IPartSupplierService, PartSupplierService>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -41,6 +45,13 @@ namespace AutoServiceCatalog.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<CarServiceContext>();
+                context.Database.Migrate();
+                Seeding.SeedAsync(context).GetAwaiter().GetResult();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
