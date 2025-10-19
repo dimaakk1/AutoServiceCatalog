@@ -14,5 +14,6 @@ namespace AutoserviceOrders.BLL.Services.Interfaces
         Task AddOrderItemAsync(OrderItemDto dto);
         Task UpdateOrderItemAsync(OrderItemDto dto);
         Task DeleteOrderItemAsync(int orderItemId);
+        Task<IEnumerable<OrderItemWithProductDto>> GetOrderItemsWithProductAsync();
     }
 }

@@ -28,7 +28,7 @@ namespace AutoserviceOrders.DAL.Repositories
             return await _connection.ExecuteAsync(sql, entity, transaction: _transaction);
         }
 
-        public async Task<OrderDetails> GetByOrderIdAsync(int orderId)
+        public async Task<OrderDetails?> GetByOrderIdAsync(int orderId)
         {
             string sql = "SELECT * FROM OrderDetails WHERE OrderId = @OrderId";
             return await _connection.QueryFirstOrDefaultAsync<OrderDetails>(sql, new { OrderId = orderId }, transaction: _transaction);

@@ -57,5 +57,12 @@ namespace AutoserviceOrders.API.Controllers
             await _orderItemService.DeleteOrderItemAsync(id);
             return Ok("Order item successfully deleted.");
         }
+
+        [HttpGet("with-products")]
+        public async Task<IActionResult> GetOrderItemsWithProducts()
+        {
+            var result = await _orderItemService.GetOrderItemsWithProductAsync();
+            return Ok(result);
+        }
     }
 }

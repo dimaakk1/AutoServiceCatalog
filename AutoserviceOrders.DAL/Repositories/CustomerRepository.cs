@@ -17,7 +17,7 @@ namespace AutoserviceOrders.DAL.Repositories
         {
         }
 
-        public async Task<Customer> GetByEmailAsync(string email)
+        public async Task<Customer?> GetByEmailAsync(string email)
         {
             string sql = "SELECT * FROM Customers WHERE Email = @Email";
             return await _connection.QueryFirstOrDefaultAsync<Customer>(sql, new { Email = email }, transaction: _transaction);

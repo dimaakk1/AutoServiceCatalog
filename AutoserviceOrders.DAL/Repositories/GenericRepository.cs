@@ -41,7 +41,7 @@ namespace AutoserviceOrders.DAL.Repositories
             return await _connection.QueryAsync<T>(sql, transaction: _transaction);
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             string sql = $"SELECT * FROM {_tableName} WHERE {_primaryKey} = @Id";
             return await _connection.QueryFirstOrDefaultAsync<T>(sql, new { Id = id }, transaction: _transaction);

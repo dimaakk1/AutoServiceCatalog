@@ -9,6 +9,6 @@ namespace AutoserviceOrders.DAL.Repositories.Interfaces
 {
     public interface IOrderDetailsRepository : IGenericRepository<OrderDetails>
     {
-        Task<OrderDetails> GetByOrderIdAsync(int orderId);
+        Task<OrderDetails?> GetByOrderIdAsync(int orderId);
     }
 }

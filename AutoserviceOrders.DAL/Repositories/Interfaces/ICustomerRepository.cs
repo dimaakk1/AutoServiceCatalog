@@ -9,6 +9,6 @@ namespace AutoserviceOrders.DAL.Repositories.Interfaces
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        Task<Customer> GetByEmailAsync(string email);
+        Task<Customer?> GetByEmailAsync(string email);
     }
 }

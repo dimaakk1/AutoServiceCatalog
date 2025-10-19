@@ -88,5 +88,14 @@ namespace AutoserviceOrders.BLL.Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<OrderItemWithProductDto>> GetOrderItemsWithProductAsync()
+        {
+            await _unitOfWork.BeginTransactionAsync();
+            var result = await _unitOfWork.OrderItems.GetOrderItemsWithProductAsync();
+            await _unitOfWork.CommitAsync();
+
+            return _mapper.Map<IEnumerable<OrderItemWithProductDto>>(result);
+        }
     }
 }
