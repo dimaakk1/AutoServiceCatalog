@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using Domain.ValueObjects;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
