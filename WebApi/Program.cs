@@ -12,7 +12,7 @@ namespace WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.AddServiceDefaults();
             // Add services to the container.
             builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);

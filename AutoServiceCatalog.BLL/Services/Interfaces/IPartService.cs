@@ -1,4 +1,7 @@
 ﻿using AutoServiceCatalog.BLL.DTO;
+using AutoServiceCatalog.DAL.Entities;
+using AutoServiceCatalog.DAL.QueryParametrs;
+using AutoServiceCatalog.DAL.Specefication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +20,6 @@ namespace AutoServiceCatalog.BLL.Services.Interfaces
         Task<List<PartDto>> SearchByNameAsync(string keyword);
         Task<List<PartDto>> GetPartsAbovePriceAsync(decimal price);
         Task<List<PartDto>> GetPartsBelowPriceAsync(decimal price);
+        Task<PagedResult<Part>> GetPartsAsync(PartQueryParameters parameters);
     }
 }

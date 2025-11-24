@@ -1,4 +1,6 @@
 ﻿using AutoServiceCatalog.DAL.Entities;
+using AutoServiceCatalog.DAL.QueryParametrs;
+using AutoServiceCatalog.DAL.Specefication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,7 @@ namespace AutoServiceCatalog.DAL.Repositories.Intarfaces
         Task<List<Part>> GetPartsAbovePriceAsync(decimal price);
         Task<List<Part>> GetPartsBelowPriceAsync(decimal price);
         Task<List<Part>> SearchByNameAsync(string keyword);
+
+        Task<PagedResult<Part>> GetPartsAsync(PartQueryParameters parameters);
     }
 }

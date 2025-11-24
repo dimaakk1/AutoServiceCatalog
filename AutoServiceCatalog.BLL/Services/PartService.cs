@@ -2,6 +2,8 @@
 using AutoServiceCatalog.BLL.DTO;
 using AutoServiceCatalog.BLL.Services.Interfaces;
 using AutoServiceCatalog.DAL.Entities;
+using AutoServiceCatalog.DAL.QueryParametrs;
+using AutoServiceCatalog.DAL.Specefication;
 using AutoServiceCatalog.DAL.UOW;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,13 @@ namespace AutoServiceCatalog.BLL.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public async Task<PagedResult<Part>> GetPartsAsync(PartQueryParameters parameters)
+        {
+            // Використовуємо репозиторій для отримання частин
+            var result = await _unitOfWork.Parts.GetPartsAsync(parameters);
+            return result;
         }
 
         public async Task<IEnumerable<PartDto>> GetAllAsync()

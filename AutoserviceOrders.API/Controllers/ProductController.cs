@@ -6,7 +6,7 @@ using AutoserviceOrders.BLL.Services.Interfaces;
 
 namespace AutoserviceOrders.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Orders/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {

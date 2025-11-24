@@ -22,9 +22,15 @@ namespace AutoServiceCatalog.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.AddServiceDefaults();
+
+
             // Add services to the container.
+            var sqlConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__SqlServer");
+
             builder.Services.AddDbContext<CarServiceContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(sqlConnectionString));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IPartRepository, PartRepository>();

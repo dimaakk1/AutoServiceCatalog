@@ -7,6 +7,8 @@ using AutoserviceOrders.BLL.Automapper;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Dapper;
+using AutoserviceOrders.DAL.db;
 
 
 namespace AutoserviceOrders.API
@@ -18,8 +20,12 @@ namespace AutoserviceOrders.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(connectionString));
+            builder.AddServiceDefaults();
+
+            var sqlConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__SqlServer");
+            DatabaseInitializer.Initialize(sqlConnectionString);
+
+            builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(sqlConnectionString));
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -58,6 +64,9 @@ namespace AutoserviceOrders.API
             app.MapControllers();
 
             app.Run();
+
         }
     }
 }
+
+

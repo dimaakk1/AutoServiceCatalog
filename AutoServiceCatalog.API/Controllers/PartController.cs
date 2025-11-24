@@ -1,11 +1,13 @@
 ﻿using AutoServiceCatalog.BLL.DTO;
 using AutoServiceCatalog.BLL.Services.Interfaces;
+using AutoServiceCatalog.DAL.QueryParametrs;
+using AutoServiceCatalog.DAL.Specefication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoServiceCatalog.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Catalog/[controller]")]
     [ApiController]
     public class PartController : ControllerBase
     {
@@ -14,6 +16,22 @@ namespace AutoServiceCatalog.API.Controllers
         public PartController(IPartService partService)
         {
             _partService = partService;
+        }
+
+        [HttpGet("parts")]
+        public async Task<IActionResult> GetParts([FromQuery] PartQueryParameters parameters)
+        {
+            var parts = await _partService.GetPartsAsync(parameters);
+
+            var result = parts.Items.Select(p => new PartDto
+            {
+                PartId = p.PartId,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.Category.CategoryId
+            });
+
+            return Ok(new PagedResult<PartDto>(result, parts.TotalCount, parameters.PageSize));
         }
 
         [HttpGet]

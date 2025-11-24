@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppHostt\AppHostt.ServiceDefaults\AppHostt.ServiceDefaults.csproj" />
     <ProjectReference Include="..\AutoServiceCatalog.BLL\AutoServiceCatalog.BLL.csproj" />
   </ItemGroup>
 

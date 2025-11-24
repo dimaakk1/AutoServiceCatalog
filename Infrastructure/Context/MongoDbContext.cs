@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Settings;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,18 @@ namespace Infrastructure.Context
     public class MongoDbContext
     {
         private readonly IMongoDatabase _database;
-        private readonly MongoDbSettings _settings;
 
-        public MongoDbContext(MongoDbSettings settings)
+        public MongoDbContext(IConfiguration configuration)
         {
-            _settings = settings;
-            var client = new MongoClient(settings.ConnectionString);
-            _database = client.GetDatabase(settings.DatabaseName);
+            string connectionString = configuration.GetConnectionString("mongo");                          
+
+            string databaseName = configuration["MongoDbSettings:DatabaseName"] ?? "reviewsdb";
+
+            var client = new MongoClient(connectionString);
+            _database = client.GetDatabase(databaseName);
         }
 
         public IMongoCollection<Review> Reviews =>
-            _database.GetCollection<Review>(_settings.ReviewsCollectionName);
+            _database.GetCollection<Review>("reviews");
     }
 }

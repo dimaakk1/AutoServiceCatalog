@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AutoServiceCatalog.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Catalog/[controller]")]
     [ApiController]
     public class PartDetailController : ControllerBase
     {
