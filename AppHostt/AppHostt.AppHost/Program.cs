@@ -35,7 +35,11 @@ var apiGateway = builder.AddProject<Projects.ApiGateway>("gateway")
 
 var aggregationApi = builder.AddProject<Projects.AggregatorService>("aggregation-service")
     .WithReference(ordersService)
-    .WithReference(reviewsService);
+    .WithReference(reviewsService)
+    .WaitFor(sql)
+    .WaitFor(mongo);
+
+
 
 
 builder.Build().Run();
