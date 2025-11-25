@@ -18,9 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\AggregatorService\AggregatorService.csproj" />
     <ProjectReference Include="..\..\ApiGateway\ApiGateway.csproj" />
-    <ProjectReference Include="..\..\AutoServiceCatalog.API\AutoServiceCatalog.API.csproj" />
-    <ProjectReference Include="..\..\AutoserviceOrders.API\AutoserviceOrders.API.csproj" />
-    <ProjectReference Include="..\..\WebApi\WebApi.csproj" />
+    <ProjectReference Include="..\..\CatalogService\AutoServiceCatalog.API\AutoServiceCatalog.API.csproj" />
+    <ProjectReference Include="..\..\ordersservice\AutoserviceOrders.API\AutoserviceOrders.API.csproj" />
+    <ProjectReference Include="..\..\ReviewsService\WebApi\WebApi.csproj" />
     <ProjectReference Include="..\AppHostt.ServiceDefaults\AppHostt.ServiceDefaults.csproj" />
   </ItemGroup>
 
