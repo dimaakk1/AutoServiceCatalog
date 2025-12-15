@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.ValueObjects;
+using Grpc.Core;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -28,16 +29,31 @@ namespace Application.Handlers
             _orderGrpcClient = orderGrpcClient;
         }
 
-        public async Task<ReviewDto> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
+        public async Task<ReviewDto> Handle(
+        CreateReviewCommand request,
+        CancellationToken cancellationToken)
         {
-            // Перевірка існування замовлення через gRPC
-            var exists = await _orderGrpcClient.ExistsAsync(request.OrderId);
-            if (!exists)
+            var order = await _orderGrpcClient.GetOrderAsync(request.OrderId);
+
+            if (order == null)
             {
-                throw new Exception($"Order with ID {request.OrderId} does not exist.");
+                throw new RpcException(
+                    new Status(
+                        StatusCode.NotFound,
+                        $"Order with ID {request.OrderId} not found"
+                    )
+                );
             }
 
-            var review = new Review(request.CustomerId, request.OrderId, new Rating(request.Rating), request.Comment);
+            var customerId = order.CustomerId;
+
+            var review = new Review(
+                customerId,
+                request.OrderId,
+                new Rating(request.Rating),
+                request.Comment
+            );
+
             await _repository.AddAsync(review);
 
             return _mapper.Map<ReviewDto>(review);

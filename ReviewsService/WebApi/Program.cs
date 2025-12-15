@@ -5,6 +5,7 @@ using Application.Automapper;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Application.Grpc;
+using WebApi.Middleware;
 
 namespace WebApi
 {
@@ -36,6 +37,8 @@ namespace WebApi
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

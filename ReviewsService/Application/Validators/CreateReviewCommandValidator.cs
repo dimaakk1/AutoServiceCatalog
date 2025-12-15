@@ -12,7 +12,6 @@ namespace Application.Validators
     {
         public CreateReviewCommandValidator()
         {
-            RuleFor(x => x.CustomerId).GreaterThan(0);
             RuleFor(x => x.OrderId).GreaterThan(0);
             RuleFor(x => x.Rating).InclusiveBetween(1, 5);
             RuleFor(x => x.Comment).NotEmpty().MaximumLength(500);

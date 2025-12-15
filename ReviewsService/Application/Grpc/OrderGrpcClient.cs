@@ -16,17 +16,18 @@ namespace Application.Grpc
             _client = client;
         }
 
-        public async Task<bool> ExistsAsync(int orderId)
+        public async Task<OrderResponse> GetOrderAsync(int orderId)
         {
             try
             {
-                var request = new OrderRequest { OrderId = orderId };
-                var response = await _client.GetOrderAsync(request);
-                return response != null && response.OrderId != 0;
+                return await _client.GetOrderAsync(new OrderRequest
+                {
+                    OrderId = orderId
+                });
             }
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
             {
-                return false;
+                return null;
             }
         }
     }
